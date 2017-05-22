@@ -1,0 +1,13 @@
+I = imread('Image.png');
+word = results.Words{2};
+wordBBox = results.WordBoundingBoxes(2,:);
+figure;
+Iname = insertObjectAnnotation(I, 'rectangle', wordBBox, word);
+imshow(Iname);
+lowConfidenceIdx = results.CharacterConfidences < 0.5;
+lowConfBBoxes = results.CharacterBoundingBoxes(lowConfidenceIdx, :);
+lowConfVal = results.CharacterConfidences(lowConfidenceIdx);
+str      = sprintf('confidence = %f', lowConfVal);
+Ilowconf = insertObjectAnnotation(I, 'rectangle', lowConfBBoxes, str);
+figure;
+imshow(Ilowconf);
